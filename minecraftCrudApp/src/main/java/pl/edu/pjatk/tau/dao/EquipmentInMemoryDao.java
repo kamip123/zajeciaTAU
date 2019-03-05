@@ -21,7 +21,7 @@ public class EquipmentInMemoryDao implements Dao<Equipment> {
 
     @Override
     public void save(Equipment e) {
-
+        equipments.put(e.getId(), e);
     }
 
     @Override
@@ -33,6 +33,6 @@ public class EquipmentInMemoryDao implements Dao<Equipment> {
 
     @Override
     public void delete(Equipment e) {
-        
+        equipments.remove(e.getId());    
     }
 }
