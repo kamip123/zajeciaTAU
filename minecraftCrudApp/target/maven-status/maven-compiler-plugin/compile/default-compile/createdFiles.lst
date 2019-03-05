@@ -1,0 +1,3 @@
+pl/edu/pjatk/tau/domain/Equipment.class
+pl/edu/pjatk/tau/dao/EquipmentInMemoryDao.class
+pl/edu/pjatk/tau/dao/Dao.class
