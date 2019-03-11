@@ -20,7 +20,7 @@ public class EquipmentInMemoryDao implements Dao<Equipment> {
 
     @Override
     public void save(Equipment o) throws IllegalArgumentException {
-
+        equipments.add(o);
     }
 
     @Override
