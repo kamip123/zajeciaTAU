@@ -4,9 +4,9 @@ package pl.edu.pjatk.tau.domain;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.BlockJUnit4ClassRunner;
+import org.junit.runners.JUnit4;
 
-@RunWith(BlockJUnit4ClassRunner.class)
+@RunWith(JUnit4.class)
 public class EquipmentTest {
     @Test
     public void createObjectTest() {
@@ -17,16 +17,9 @@ public class EquipmentTest {
     @Test
     public void equipmentGettersAndSettersTest() {
         Equipment e = new Equipment();
-        e.setId(1);
+        e.setId(1L);
         e.setOwner("Player 1");
         assertEquals(1, e.getId());
         assertEquals("Player 1", e.getOwner());
-    }   
-
-    @Test
-    public void equipmentLimitTest() {
-        Equipment e = new Equipment();
-        assertEquals(64, e.add(65, 1));
-        assertEquals(64, e.add(65, 2));
     }
 }

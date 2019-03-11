@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: pl.edu.pjatk.tau.domain.EquipmentTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.075 sec - in pl.edu.pjatk.tau.domain.EquipmentTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.061 sec

@@ -8,6 +8,15 @@ public class Equipment {
     private int slotOne;
     private int slotTwo;  
 
+    public Equipment(){ }
+
+    public Equipment(Long id, String owner, int slotOne, int slotTwo){
+        this.id = id;
+        this.owner = owner;
+        this.slotOne=slotOne;
+        this.slotTwo=slotTwo;
+    }
+
     public void setId(long i) {
         this.id = i;
     }
