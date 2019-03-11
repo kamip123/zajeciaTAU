@@ -36,6 +36,7 @@ public class EquipmentInMemoryDao implements Dao<Equipment> {
 
     @Override
     public void delete(Equipment o) {
-
+        int id = o.getId().intValue();
+        equipments.remove(id);
     }
 }

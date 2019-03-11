@@ -71,4 +71,11 @@ public class EquipmentInMemoryDaoTest {
     public void gettingExistsTest() {
         equipmentDao.getById(4L);
     }
+
+    @Test
+    public void deleteTest() {
+        Equipment equipment = equipmentDao.getById(1L).get();
+        equipmentDao.delete(equipment);
+        assertEquals(1, equipmentDao.equipments.size());
+    }
 }
