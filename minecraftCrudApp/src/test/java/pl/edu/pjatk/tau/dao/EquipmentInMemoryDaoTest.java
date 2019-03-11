@@ -26,6 +26,12 @@ public class EquipmentInMemoryDaoTest {
         assertNotNull(equipmentDao);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void alreadyExistsTest() {
+        Equipment equipment = new Equipment(1L, "Player 1", 30, 30);
+        equipmentDao.save(equipment);
+    }
+
     @Test
     public void savingTest() {
         Equipment equipment = new Equipment(3L, "Player 3", 45, 45);
@@ -38,5 +44,17 @@ public class EquipmentInMemoryDaoTest {
     public void gettingAllCarsTest() {
         assertArrayEquals(equipmentDao.equipments.toArray(), equipmentDao.getAll().toArray());
         assertEquals(equipmentDao.equipments.size(), equipmentDao.getAll().size());
+    }
+
+    @Test
+    public void gettingByIdTest() {
+        Equipment equipment = new Equipment(3L, "Player 4", 55, 55);
+        equipmentDao.save(equipment);
+        assertEquals(equipment, equipmentDao.getById(3L).get());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void gettingExistsTest() {
+        equipmentDao.getById(4L);
     }
 }

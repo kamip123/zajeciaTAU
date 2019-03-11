@@ -15,11 +15,15 @@ public class EquipmentInMemoryDao implements Dao<Equipment> {
 
     @Override
     public Optional<Equipment> getById(Long id) throws IllegalArgumentException {
-        return null;
+        if (equipments.stream().noneMatch(equipment -> equipment.getId().equals(id)))
+            throw new IllegalArgumentException("equipment with id " + id + " not exists");
+        return equipments.stream().filter(equipment -> equipment.getId().equals(id)).findFirst();
     }
 
     @Override
     public void save(Equipment o) throws IllegalArgumentException {
+        if (equipments.stream().anyMatch(equipment -> equipment.getId().equals(o.getId())))
+            throw new IllegalArgumentException("equipment already exists");
         equipments.add(o);
     }
 
