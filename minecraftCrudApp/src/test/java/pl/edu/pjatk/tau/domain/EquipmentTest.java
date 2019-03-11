@@ -19,7 +19,11 @@ public class EquipmentTest {
         Equipment e = new Equipment();
         e.setId(1L);
         e.setOwner("Player 1");
-        assertEquals(1, e.getId());
+        e.setSlotOne(64);
+        e.setSlotTwo(64);
+        assertEquals(1L, e.getId().longValue());
         assertEquals("Player 1", e.getOwner());
+        assertEquals(64, e.getSlotOne());
+        assertEquals(64, e.getSlotTwo());
     }
 }

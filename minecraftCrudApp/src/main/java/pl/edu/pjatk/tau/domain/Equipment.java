@@ -17,7 +17,7 @@ public class Equipment {
         this.slotTwo=slotTwo;
     }
 
-    public void setId(long i) {
+    public void setId(Long i) {
         this.id = i;
     }
 
@@ -25,7 +25,15 @@ public class Equipment {
         this.owner = owner;
     }
 
-    public long getId() {
+    public void setSlotOne(int i) {
+        this.slotOne = i;
+    }
+
+    public void setSlotTwo(int i) {
+        this.slotTwo = i;
+    }
+
+    public Long getId() {
         return this.id;
     }
 
