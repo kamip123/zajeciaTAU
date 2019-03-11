@@ -29,7 +29,9 @@ public class EquipmentInMemoryDao implements Dao<Equipment> {
 
     @Override
     public void update(Equipment o) throws IllegalArgumentException {
-
+        if (equipments.stream().noneMatch(equipment -> equipment.getId().equals(o.getId())))
+            throw new IllegalArgumentException("equipment not exists");
+        equipments.add(o.getId().intValue() - 1, o);
     }
 
     @Override

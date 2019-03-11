@@ -41,7 +41,21 @@ public class EquipmentInMemoryDaoTest {
     }
 
     @Test
-    public void gettingAllCarsTest() {
+    public void updateTest() {
+        Equipment equipment = equipmentDao.getById(1L).get();
+        equipment.setSlotOne(50);
+        equipmentDao.update(equipment);
+        assertEquals(50, equipmentDao.getById(1L).get().getSlotOne());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void updateExistingTest() {
+        Equipment equipment = new Equipment(3L, "Player 3", 45, 45);
+        equipmentDao.update(equipment);
+    }
+
+    @Test
+    public void gettingAllEquipmentsTest() {
         assertArrayEquals(equipmentDao.equipments.toArray(), equipmentDao.getAll().toArray());
         assertEquals(equipmentDao.equipments.size(), equipmentDao.getAll().size());
     }
