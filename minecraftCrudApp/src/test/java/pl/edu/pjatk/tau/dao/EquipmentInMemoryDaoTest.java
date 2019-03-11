@@ -7,8 +7,7 @@ import org.junit.runners.JUnit4;
 import pl.edu.pjatk.tau.domain.Equipment;
 
 import java.util.ArrayList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 @RunWith(JUnit4.class)
 public class EquipmentInMemoryDaoTest {
@@ -33,5 +32,11 @@ public class EquipmentInMemoryDaoTest {
         equipmentDao.save(equipment);
         assertEquals(3L, equipmentDao.equipments.get(2).getId().longValue());
         assertEquals(3, equipmentDao.equipments.size());
+    }
+
+    @Test
+    public void gettingAllCarsTest() {
+        assertArrayEquals(equipmentDao.equipments.toArray(), equipmentDao.getAll().toArray());
+        assertEquals(equipmentDao.equipments.size(), equipmentDao.getAll().size());
     }
 }
