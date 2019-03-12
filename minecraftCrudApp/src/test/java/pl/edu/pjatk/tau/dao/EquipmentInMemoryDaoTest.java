@@ -7,6 +7,7 @@ import org.junit.runners.JUnit4;
 import pl.edu.pjatk.tau.domain.Equipment;
 
 import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 @RunWith(JUnit4.class)
@@ -42,7 +43,7 @@ public class EquipmentInMemoryDaoTest {
 
     @Test
     public void updateTest() {
-        Equipment equipment = equipmentDao.getById(1L).get();
+        Equipment equipment = new Equipment(equipmentDao.getById(1L).get());
         equipment.setSlotOne(50);
         equipmentDao.update(equipment);
         assertEquals(50, equipmentDao.getById(1L).get().getSlotOne());

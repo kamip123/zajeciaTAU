@@ -17,6 +17,13 @@ public class Equipment {
         this.slotTwo=slotTwo;
     }
 
+    public Equipment(Equipment equipment){
+        id = equipment.id;
+        owner = equipment.owner;
+        slotOne = equipment.slotOne;
+        slotTwo = equipment.slotTwo;
+    }
+
     public void setId(Long i) {
         this.id = i;
     }
