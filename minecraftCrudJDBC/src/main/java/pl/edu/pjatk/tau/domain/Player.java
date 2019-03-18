@@ -12,6 +12,12 @@ public class Player {
 
     public Player(){ }
 
+    public Player(String name, int armor, int hp){
+        this.name = name;
+        this.armor=armor;
+        this.hp=hp;
+    }
+
     public Player(Long id, String name, int armor, int hp){
         this.id = id;
         this.name = name;
