@@ -15,6 +15,8 @@ public class PlayerDaoJdbcImpl implements PlayerDao {
     private PreparedStatement getAllPlayersPreparedStatement;
     private PreparedStatement getPlayerByIdPreparedStatement;
     private PreparedStatement updatePlayerPreparedStatement;
+    private PreparedStatement deletePlayerPreparedStatement;
+
     public PlayerDaoJdbcImpl() { }
 
     public PlayerDaoJdbcImpl(Connection connection) throws SQLException {
@@ -35,6 +37,7 @@ public class PlayerDaoJdbcImpl implements PlayerDao {
         getAllPlayersPreparedStatement = connection.prepareStatement("SELECT id, name, armor, hp FROM Player ORDER By id");
         getPlayerByIdPreparedStatement = connection.prepareStatement("SELECT id, name, armor, hp FROM Player WHERE id = ?");
         updatePlayerPreparedStatement = connection.prepareStatement("UPDATE Player SET armor = ? WHERE id = ?");
+        deletePlayerPreparedStatement = connection.prepareStatement("DELETE FROM Player WHERE id =  ?");
     }
 
     @Override
@@ -118,6 +121,16 @@ public class PlayerDaoJdbcImpl implements PlayerDao {
         throw new SQLException("Player with id " + id + " does not exists");
     }
 
+    @Override
+    public int deletePlayer(Player player) {
+        try {
+            deletePlayerPreparedStatement.setLong(1, player.getId());
+            return deletePlayerPreparedStatement.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new IllegalStateException(e.getMessage());
+        }
+    }
 }
 
 

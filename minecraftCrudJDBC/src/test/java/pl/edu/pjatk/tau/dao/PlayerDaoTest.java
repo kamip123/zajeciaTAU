@@ -122,4 +122,13 @@ public class PlayerDaoTest {
         Player player = initialDatabaseState.get(3);
         assertEquals(player, playerDao.getPlayer(player.getId()));
     }
+
+    @Test(expected = SQLException.class)
+    public void deletingTest() throws SQLException {
+        Player player = initialDatabaseState.get(2);
+        initialDatabaseState.remove(player);
+        assertEquals(1, playerDao.deletePlayer(player));
+        assertThat(playerDao.getAllPlayers(), equalTo(initialDatabaseState));
+        assertNull(playerDao.getPlayer(player.getId()));
+    }
 }
