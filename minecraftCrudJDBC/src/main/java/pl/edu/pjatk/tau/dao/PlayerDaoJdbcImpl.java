@@ -14,7 +14,7 @@ public class PlayerDaoJdbcImpl implements PlayerDao {
     private PreparedStatement addPlayerPreparedStatement;
     private PreparedStatement getAllPlayersPreparedStatement;
     private PreparedStatement getPlayerByIdPreparedStatement;
-
+    private PreparedStatement updatePlayerPreparedStatement;
     public PlayerDaoJdbcImpl() { }
 
     public PlayerDaoJdbcImpl(Connection connection) throws SQLException {
@@ -34,7 +34,7 @@ public class PlayerDaoJdbcImpl implements PlayerDao {
                 Statement.RETURN_GENERATED_KEYS);
         getAllPlayersPreparedStatement = connection.prepareStatement("SELECT id, name, armor, hp FROM Player ORDER By id");
         getPlayerByIdPreparedStatement = connection.prepareStatement("SELECT id, name, armor, hp FROM Player WHERE id = ?");
-
+        updatePlayerPreparedStatement = connection.prepareStatement("UPDATE Player SET armor = ? WHERE id = ?");
     }
 
     @Override
@@ -54,6 +54,28 @@ public class PlayerDaoJdbcImpl implements PlayerDao {
             throw new IllegalStateException(e.getMessage());
         }
         return count;
+    }
+
+    @Override
+    public int updatePlayer(Player player) throws SQLException {
+        int count;
+        try {
+            updatePlayerPreparedStatement.setInt(1, player.getArmor());
+            if (player.getId() != null) {
+                updatePlayerPreparedStatement.setLong(2, player.getId());
+            }
+            else {
+                updatePlayerPreparedStatement.setLong(2, -1);
+            }
+            count = updatePlayerPreparedStatement.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+        if (count == 1)
+            return count;
+        else
+            throw new SQLException("Player not found");
     }
 
     @Override

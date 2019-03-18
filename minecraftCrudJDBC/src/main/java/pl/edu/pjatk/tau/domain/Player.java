@@ -25,6 +25,13 @@ public class Player {
         this.hp=hp;
     }
 
+    public Player(Player player){
+        id = player.id;
+        name = player.name;
+        armor = player.armor;
+        hp = player.hp;
+    }
+
     public void setId(Long i) {
         this.id = i;
     }

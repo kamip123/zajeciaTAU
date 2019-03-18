@@ -10,11 +10,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 @RunWith(JUnit4.class)
 public class PlayerDaoTest {
@@ -93,6 +93,15 @@ public class PlayerDaoTest {
         player.setHp(1000);
         assertEquals(1, playerDao.addPlayer(player));
         initialDatabaseState.add(player);
+        assertThat(playerDao.getAllPlayers(), equalTo(initialDatabaseState));
+    }
+
+    @Test
+    public void updatingTest() throws SQLException {
+        Player player = new Player(initialDatabaseState.get(2));
+        player.setArmor(1000);
+        initialDatabaseState.set(2, player);
+        assertEquals(1, playerDao.updatePlayer(player));
         assertThat(playerDao.getAllPlayers(), equalTo(initialDatabaseState));
     }
 

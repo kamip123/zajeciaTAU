@@ -13,6 +13,6 @@ public interface PlayerDao {
 
 	int addPlayer(Player player);
 	//int deletePPlayer(Player player);
-	//int updatePlayer(Player player) throws SQLException;
+	int updatePlayer(Player player) throws SQLException;
 	Player getPlayer(long id) throws SQLException;
 }
