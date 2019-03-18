@@ -9,10 +9,10 @@ import pl.edu.pjatk.tau.domain.Player;
 public interface PlayerDao {
 	Connection getConnection();
 	void setConnection(Connection connection) throws SQLException;
-	//List<Player> getAllPlayers();
+	List<Player> getAllPlayers();
 
 	int addPlayer(Player player);
 	//int deletePPlayer(Player player);
 	//int updatePlayer(Player player) throws SQLException;
-	//Player getPlayer(long id) throws SQLException;
+	Player getPlayer(long id) throws SQLException;
 }

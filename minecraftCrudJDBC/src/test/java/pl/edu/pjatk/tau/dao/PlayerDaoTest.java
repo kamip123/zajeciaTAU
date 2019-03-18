@@ -10,6 +10,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -19,10 +21,12 @@ public class PlayerDaoTest {
     public static String url = "jdbc:hsqldb:hsql://localhost/workdb";
 
     PlayerDao playerDao;
+    List<Player> initialDatabaseState;
 
     @Before
     public void setup() throws SQLException {
         Connection connection = DriverManager.getConnection(url);
+        initialDatabaseState = new ArrayList<>();
         try {
             connection.createStatement()
                     .executeUpdate("CREATE TABLE IF NOT EXISTS " +
@@ -55,6 +59,7 @@ public class PlayerDaoTest {
                 if (generatedKeys.next()) {
                     player.setId(generatedKeys.getLong(1));
                 }
+                initialDatabaseState.add(player);
             }
             catch (SQLException e) {
                 throw new IllegalStateException(e.getMessage());
@@ -87,5 +92,25 @@ public class PlayerDaoTest {
         player.setArmor(2019);
         player.setHp(1000);
         assertEquals(1, playerDao.addPlayer(player));
+        initialDatabaseState.add(player);
+        assertThat(playerDao.getAllPlayers(), equalTo(initialDatabaseState));
+    }
+
+    @Test
+    public void gettingAllTest() {
+        List<Player> retrievedPlayers = playerDao.getAllPlayers();
+        assertThat(retrievedPlayers, equalTo(initialDatabaseState));
+    }
+
+    @Test
+    public void gettingTest() throws SQLException {
+        Player player = initialDatabaseState.get(2);
+        assertEquals(player, playerDao.getPlayer(player.getId()));
+    }
+
+    @Test(expected = Exception.class)
+    public void gettingSQLExceptionTest() throws Exception {
+        Player player = initialDatabaseState.get(3);
+        assertEquals(player, playerDao.getPlayer(player.getId()));
     }
 }
