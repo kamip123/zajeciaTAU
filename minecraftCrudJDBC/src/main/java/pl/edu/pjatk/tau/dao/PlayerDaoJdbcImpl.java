@@ -122,14 +122,23 @@ public class PlayerDaoJdbcImpl implements PlayerDao {
     }
 
     @Override
-    public int deletePlayer(Player player) {
+    public int deletePlayer(Player player) throws SQLException {
+        int result;
         try {
-            deletePlayerPreparedStatement.setLong(1, player.getId());
-            return deletePlayerPreparedStatement.executeUpdate();
+            if (player.getId() != null) {
+                deletePlayerPreparedStatement.setLong(1, player.getId());
+                result = deletePlayerPreparedStatement.executeUpdate();
+            }
+            else
+                result = 0;
         }
         catch (SQLException e) {
             throw new IllegalStateException(e.getMessage());
         }
+        if (result == 1) 
+            return result;
+        else
+            throw new SQLException("Player not found");
     }
 }
 

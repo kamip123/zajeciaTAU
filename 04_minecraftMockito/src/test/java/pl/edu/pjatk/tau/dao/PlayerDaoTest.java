@@ -12,6 +12,12 @@ import java.util.Collections;
 import java.util.List;
 import static org.junit.Assert.*;
 
+import org.mockito.InOrder;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.*;
+import org.mockito.junit.MockitoJUnitRunner;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -47,7 +53,7 @@ public class PlayerDaoTest {
         Collections.addAll(players,
                 new Player("best player", 50, 10),
                 new Player("wiedzmin", 20, 1000),
-                new Player("worst player", 200, 200));
+                new Player("harry", 200, 200));
 
         for (Player player : players) {
             try {
@@ -81,15 +87,10 @@ public class PlayerDaoTest {
     }
 
     @Test
-    public void setConnectionTest() throws SQLException {
-        assertNotNull(playerDao.getConnection());
-    }
-
-    @Test
     public void additionTest() {
         Player player = new Player();
         player.setName("Player 1");
-        player.setArmor(2000);
+        player.setArmor(2019);
         player.setHp(1000);
         assertEquals(1, playerDao.addPlayer(player));
         initialDatabaseState.add(player);
@@ -97,40 +98,8 @@ public class PlayerDaoTest {
     }
 
     @Test
-    public void updatingTest() throws SQLException {
-        Player player = new Player(initialDatabaseState.get(2));
-        player.setArmor(1111);
-        initialDatabaseState.set(2, player);
-        assertEquals(1, playerDao.updatePlayer(player));
-        assertThat(playerDao.getAllPlayers(), equalTo(initialDatabaseState));
-    }
-
-    @Test
     public void gettingAllTest() {
         List<Player> retrievedPlayers = playerDao.getAllPlayers();
         assertThat(retrievedPlayers, equalTo(initialDatabaseState));
-    }
-
-    @Test
-    public void gettingTest() throws SQLException {
-        Player player = initialDatabaseState.get(2);
-        assertEquals(player, playerDao.getPlayer(player.getId()));
-    }
-
-    @Test(expected = SQLException.class)
-    public void gettingSQLExceptionTest() throws SQLException {
-        Player player = playerDao.getPlayer(-1);
-    }
-
-    @Test(expected = SQLException.class)
-    public void deletingTest() throws SQLException {
-        
-        Player player = new Player();
-        player.setId(20L);
-        player.setName("Player 1");
-        player.setArmor(2000);
-        player.setHp(1000);
-        
-        playerDao.deletePlayer(player);
     }
 }
