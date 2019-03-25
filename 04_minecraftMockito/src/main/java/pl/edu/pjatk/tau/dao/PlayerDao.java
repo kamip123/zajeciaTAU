@@ -11,8 +11,9 @@ public interface PlayerDao {
 	void setConnection(Connection connection) throws SQLException;
 	List<Player> getAllPlayers();
 
-	int addPlayer(Player player);
+	int addPlayer(Player player) throws SQLException;
+	Player getPlayer(long id) throws SQLException;
 	//int deletePlayer(Player player);
 	//int updatePlayer(Player player) throws SQLException;
-	//Player getPlayer(long id) throws SQLException;
+
 }
