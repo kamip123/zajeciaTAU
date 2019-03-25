@@ -36,6 +36,12 @@ public class PlayerDaoTest {
     @Mock
     PreparedStatement addStatementMock;
 
+    @Mock
+    PreparedStatement updateStatementMock;
+
+    @Mock
+    PreparedStatement deleteStatementMock;
+
     abstract class AbstractResultSet implements ResultSet {
         int i;
 
@@ -83,7 +89,8 @@ public class PlayerDaoTest {
         when(connection.prepareStatement("SELECT id, name, armor, hp FROM Player ORDER BY id")).thenReturn(selectAllStatementMock);
         when(connection.prepareStatement("SELECT id, name, armor, hp FROM Player WHERE id = ?")).thenReturn(selectByIdStatementMock);
         when(connection.prepareStatement("INSERT INTO Player (name, armor, hp) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS)).thenReturn(addStatementMock);
-
+        when(connection.prepareStatement("UPDATE Player SET hp = ? WHERE id = ?")).thenReturn(updateStatementMock);
+        when(connection.prepareStatement("DELETE FROM Player WHERE id = ?")).thenReturn(deleteStatementMock);
         playerDao = new PlayerDaoJdbcImpl();
         playerDao.setConnection(connection);
     }
@@ -158,5 +165,31 @@ public class PlayerDaoTest {
         verify(mockedResultSet, times(initialDatabaseState.size())).getInt("armor");
         verify(mockedResultSet, times(initialDatabaseState.size())).getInt("hp");
         verify(mockedResultSet, times(initialDatabaseState.size()+1)).next();
+    }
+
+    @Test
+    public void updatingTest() throws SQLException {
+        InOrder inOrder = inOrder(updateStatementMock);
+        when(updateStatementMock.executeUpdate()).thenReturn(1);
+
+        Player player = initialDatabaseState.get(0);
+        player.setHp(999);
+        playerDao.updatePlayer(player);
+
+        inOrder.verify(updateStatementMock, times(1)).setInt(1, 999);
+        inOrder.verify(updateStatementMock, times(1)).setLong(2, 1);
+        inOrder.verify(updateStatementMock).executeUpdate();
+    }
+
+    @Test
+    public void deletingTest() throws SQLException {
+        InOrder inOrder = inOrder(deleteStatementMock);
+        when(deleteStatementMock.executeUpdate()).thenReturn(1);
+
+        Player player = initialDatabaseState.get(0);
+        playerDao.deletePlayer(player);
+
+        inOrder.verify(deleteStatementMock, times(1)).setLong(1, 1);
+        inOrder.verify(deleteStatementMock).executeUpdate();
     }
 }

@@ -16,6 +16,8 @@ public class PlayerDaoJdbcImpl implements PlayerDao {
     public PreparedStatement addPlayerPreparedStatement;
     public PreparedStatement getAllPlayersPreparedStatement;
     public PreparedStatement getPlayerPreparedStatement;
+    public PreparedStatement updatePlayerPreparedStatement;
+    public PreparedStatement deletePlayerPreparedStatement;
 
     Connection connection;
 
@@ -33,6 +35,8 @@ public class PlayerDaoJdbcImpl implements PlayerDao {
         getAllPlayersPreparedStatement = connection.prepareStatement(
                 "SELECT id, name, armor, hp FROM Player ORDER BY id");
         getPlayerPreparedStatement = connection.prepareStatement("SELECT id, name, armor, hp FROM Player WHERE id = ?");
+        updatePlayerPreparedStatement = connection.prepareStatement("UPDATE Player SET hp = ? WHERE id = ?");
+        deletePlayerPreparedStatement = connection.prepareStatement("DELETE FROM Player WHERE id = ?");
     }
 
     @Override
@@ -86,6 +90,49 @@ public class PlayerDaoJdbcImpl implements PlayerDao {
             throw new IllegalStateException(e.getMessage());
         }
         return players;
+    }
+
+    @Override
+    public int updatePlayer(Player player) throws SQLException {
+        int result;
+        try {
+            updatePlayerPreparedStatement.setInt(1, player.getHp());
+            if (player.getId() != null) {
+                updatePlayerPreparedStatement.setLong(2, player.getId());
+            }
+            else {
+                updatePlayerPreparedStatement.setLong(2, -1);
+            }
+            result = updatePlayerPreparedStatement.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+        if (result == 1)
+            return result;
+        else
+            throw new SQLException("Player not found");
+    }
+
+    @Override
+    public int deletePlayer(Player player) throws SQLException {
+        int result;
+        try {
+            if (player.getId() != null) {
+                deletePlayerPreparedStatement.setLong(1, player.getId());
+            }
+            else {
+                deletePlayerPreparedStatement.setLong(1, -1);
+            }
+            result = deletePlayerPreparedStatement.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new SQLException(e.getMessage());
+        }
+        if (result == 1)
+            return result;
+        else
+            throw new SQLException("Player not found");
     }
 
 }
