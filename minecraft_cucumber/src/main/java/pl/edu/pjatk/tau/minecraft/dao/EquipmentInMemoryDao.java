@@ -1,12 +1,12 @@
-package pl.edu.pjatk.tau.dao;
+package pl.edu.pjatk.tau.minecraft.dao;
 
-import pl.edu.pjatk.tau.domain.Equipment;
+import pl.edu.pjatk.tau.minecraft.domain.Equipment;
 
 import java.util.List;
 import java.util.Optional;
 
-public class EquipmentInMemoryDao implements Dao<Equipment> {
-    protected List<Equipment> equipments;
+public class EquipmentInMemoryDao implements MinecraftDao {
+    public List<Equipment> equipments;
 
     @Override
     public List<Equipment> getAll() {
@@ -35,7 +35,9 @@ public class EquipmentInMemoryDao implements Dao<Equipment> {
     }
 
     @Override
-    public void delete(Equipment o) {
+    public void delete(Equipment o) throws IllegalArgumentException {
+        if (equipments.stream().noneMatch(equipment -> equipment.getId().equals(o.getId())))
+            throw new IllegalArgumentException("equipment not exists");
         int id = o.getId().intValue();
         equipments.remove(id);
     }
