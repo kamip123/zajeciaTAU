@@ -6,3 +6,4 @@ Feature: Player taking swords from chest
         When Player Choose a "Chest on floor 1"
         And Player choose the "Lucky Sword"
         Then Player have a lucky swords
+        But Player don't have other items

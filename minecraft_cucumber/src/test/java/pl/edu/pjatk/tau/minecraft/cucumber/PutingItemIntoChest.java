@@ -13,24 +13,24 @@ import java.util.Collections;
 
 public class PutingItemIntoChest {
     private EquipmentInMemoryDao equipmentInMemoryDao;
-    private int previousQuantityOfSwords;
+    private int previousQuantityOfItems;
 
-    @Given("Player had {int} sword")
-    public void player_had_sword(Integer int1) {
+    @Given("Player had {int} {string}")
+    public void player_had_(Integer int1, String string) {
         equipmentInMemoryDao = new EquipmentInMemoryDao();
         equipmentInMemoryDao.equipments = new ArrayList<>();
     }
 
-    @When("Player removed {int} sword from inventory")
-    public void player_removed_sword_from_inventory(Integer int1) {
-        previousQuantityOfSwords = equipmentInMemoryDao.equipments.size();
-        equipmentInMemoryDao.save(new Equipment(1L,"Chest on floor 1", 1, "Sword"));
+    @When("Player removed {int} {string} from inventory")
+    public void player_removed_from_inventory(Integer int1, String string) {
+        previousQuantityOfItems = equipmentInMemoryDao.equipments.size();
+        equipmentInMemoryDao.save(new Equipment(1L,"Chest on floor 1", 1, string));
 
     }
 
-    @Then("Quantity of swords have increased by {int}")
-    public void quantity_of_swords_have_increased_by(Integer int1) {
-        Assert.assertEquals(previousQuantityOfSwords + int1, equipmentInMemoryDao.equipments.size());
+    @Then("Quantity of {string} have increased by {int}")
+    public void quantity_of_have_increased_by(String string, Integer int1) {
+        Assert.assertEquals(previousQuantityOfItems + int1, equipmentInMemoryDao.equipments.size());
     }
 
 }
