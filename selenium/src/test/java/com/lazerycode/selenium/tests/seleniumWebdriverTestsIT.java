@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import com.lazerycode.selenium.DriverBase;
 import com.lazerycode.selenium.page_objects.GoogleHomePage;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -113,7 +114,7 @@ public class seleniumWebdriverTestsIT extends DriverBase {
             System.out.println("\nTaking screenshot...");
             TakesScreenshot scrShot =((TakesScreenshot)driver);
             File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
-            File DestFile=new File("/home/kamil/Documents/zajeciaTAU/selenium/LogIn.png");
+            File DestFile=new File("/home/PJWSTK/s15806/Documents/zajeciaTAU/selenium/LogIn.png");
             FileUtils.copyFile(SrcFile, DestFile);
             System.out.println("\nTook screenshot succesfuly.");
 
@@ -122,13 +123,46 @@ public class seleniumWebdriverTestsIT extends DriverBase {
             try{
                 driver.findElement(By.id("username"));
                 System.out.println("\nLoging out have been succesful.");
-                System.out.println("\n\n\n");
             }catch(Exception e){
                 System.out.println("\nEncountered an error while logging out");
             }
 
         }catch(Exception e){
             System.out.println("\nEncountered an error while logging in");
+        }
+    }
+
+    @Test
+    public void validationTest() throws Exception{
+        WebDriver driver = getDriver();
+        driver.get("http://the-internet.herokuapp.com/");
+        System.out.println("\n\n\nValidation test");
+        System.out.println("\nPage title is: " + driver.getTitle());
+        System.out.println("\nCurrent url is: " + driver.getCurrentUrl());
+        WebDriverWait wait = new WebDriverWait(driver, 5, 100);
+        String tagName = driver.findElement(By.linkText("Form Authentication")).getTagName();
+        System.out.println("\nLooking for Form Authentication");
+        System.out.println("\nFound tag: " + tagName + "\n\n" + "clicking...");
+        Assert.assertEquals("a", tagName);
+        driver.findElement(By.linkText("Form Authentication")).click();
+        wait = new WebDriverWait(driver, 5, 100);
+        System.out.println("\nCurrent url is: " + driver.getCurrentUrl());
+        Assert.assertEquals("http://the-internet.herokuapp.com/login", driver.getCurrentUrl());
+
+
+        System.out.println("\nTyping username");
+        driver.findElement(By.id("username")).sendKeys("tomsmith@");
+        WebElement inputField = driver.findElement(By.id("username"));
+        String text = inputField.getAttribute("value");
+        System.out.println("\nInput value is: " + text);
+
+        if((text).contains("@")){
+            System.out.println("Found special haracter. Input text is invalid.");
+            System.out.println("\n\n\n");
+        }
+        else{
+            System.out.println("Input text is valid");
+            System.out.println("\n\n\n");
         }
     }
 }

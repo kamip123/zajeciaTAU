@@ -485,9 +485,228 @@
       "value": "SuperSecretPassword!"
     }]
   }, {
-    "id": "d89bc3c6-7add-4e72-906e-87ea8aba6eed",
-    "name": "keyboardInputTest",
-    "commands": []
+    "id": "b8218535-ae0c-4bdf-8438-5e5622063cb7",
+    "name": "loginAndLogout (1)",
+    "commands": [{
+      "id": "6aec4aa1-b6ec-4db0-b641-fcc96cd2825b",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3c38eee3-8b00-4264-b85d-7548eb4b695e",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "994x693",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8923f832-5c53-45b3-9848-cba6e3106b1c",
+      "comment": "",
+      "command": "click",
+      "target": "css=li:nth-child(4)",
+      "targets": [
+        ["css=li:nth-child(4)", "css:finder"],
+        ["xpath=//div[@id='content']/ul/li[4]", "xpath:idRelative"],
+        ["xpath=//li[4]", "xpath:position"],
+        ["xpath=//li[contains(.,'Broken Images')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e9f62ab3-06ed-4c0c-a941-63b5d238c188",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Form Authentication",
+      "targets": [
+        ["linkText=Form Authentication", "linkText"],
+        ["css=li:nth-child(20) > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Form Authentication')]", "xpath:link"],
+        ["xpath=//div[@id='content']/ul/li[20]/a", "xpath:idRelative"],
+        ["xpath=//a[contains(@href, '/login')]", "xpath:href"],
+        ["xpath=//li[20]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Form Authentication')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5f157390-63c7-40ef-beb4-05891fb6c9ae",
+      "comment": "",
+      "command": "click",
+      "target": "css=.subheader",
+      "targets": [
+        ["css=.subheader", "css:finder"],
+        ["xpath=//div[@id='content']/div/h4", "xpath:idRelative"],
+        ["xpath=//h4", "xpath:position"],
+        ["xpath=//h4[contains(.,'This is where you can log into the secure area. Enter tomsmith for the username and SuperSecretPassword! for the password. If the information is wrong you should see error messages.')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "747e4618-ddc8-4d16-b4e5-581ca4e11997",
+      "comment": "",
+      "command": "click",
+      "target": "css=em:nth-child(2)",
+      "targets": [
+        ["css=em:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='content']/div/h4/em[2]", "xpath:idRelative"],
+        ["xpath=//em[2]", "xpath:position"],
+        ["xpath=//em[contains(.,'SuperSecretPassword!')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2a2cc9c7-50b2-4574-b3d9-ff9663fd953a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.subheader",
+      "targets": [
+        ["css=.subheader", "css:finder"],
+        ["xpath=//div[@id='content']/div/h4", "xpath:idRelative"],
+        ["xpath=//h4", "xpath:position"],
+        ["xpath=//h4[contains(.,'This is where you can log into the secure area. Enter tomsmith for the username and SuperSecretPassword! for the password. If the information is wrong you should see error messages.')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c27349a7-d0e9-4f91-82b7-92669854e289",
+      "comment": "",
+      "command": "click",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "75005d57-6930-4ef0-9be2-f43ffc81a42e",
+      "comment": "",
+      "command": "type",
+      "target": "id=password",
+      "targets": [
+        ["id=password", "id"],
+        ["name=password", "name"],
+        ["css=#password", "css:finder"],
+        ["xpath=//input[@id='password']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[2]/div/input", "xpath:position"]
+      ],
+      "value": "SuperSecretPassword!"
+    }, {
+      "id": "2b853af9-a2b2-4a17-aac0-d715513bdb6f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.subheader",
+      "targets": [
+        ["css=.subheader", "css:finder"],
+        ["xpath=//div[@id='content']/div/h4", "xpath:idRelative"],
+        ["xpath=//h4", "xpath:position"],
+        ["xpath=//h4[contains(.,'This is where you can log into the secure area. Enter tomsmith for the username and SuperSecretPassword! for the password. If the information is wrong you should see error messages.')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4486ee6e-740e-4a20-889c-f9065138ee75",
+      "comment": "",
+      "command": "click",
+      "target": "css=em:nth-child(1)",
+      "targets": [
+        ["css=em:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='content']/div/h4/em", "xpath:idRelative"],
+        ["xpath=//em", "xpath:position"],
+        ["xpath=//em[contains(.,'tomsmith')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b3888fb3-17d5-40ba-b761-4f598143a59e",
+      "comment": "",
+      "command": "click",
+      "target": "css=em:nth-child(1)",
+      "targets": [
+        ["css=em:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='content']/div/h4/em", "xpath:idRelative"],
+        ["xpath=//em", "xpath:position"],
+        ["xpath=//em[contains(.,'tomsmith')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e9480415-e676-4e42-95bf-6a3e3f901791",
+      "comment": "",
+      "command": "doubleClick",
+      "target": "css=em:nth-child(1)",
+      "targets": [
+        ["css=em:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='content']/div/h4/em", "xpath:idRelative"],
+        ["xpath=//em", "xpath:position"],
+        ["xpath=//em[contains(.,'tomsmith')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7beee9ba-84ca-4797-b815-1fd9cf4ff87e",
+      "comment": "",
+      "command": "click",
+      "target": "id=username",
+      "targets": [
+        ["id=username", "id"],
+        ["name=username", "name"],
+        ["css=#username", "css:finder"],
+        ["xpath=//input[@id='username']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "cee82f09-f87d-4275-91e7-454651b30679",
+      "comment": "",
+      "command": "type",
+      "target": "id=username",
+      "targets": [
+        ["id=username", "id"],
+        ["name=username", "name"],
+        ["css=#username", "css:finder"],
+        ["xpath=//input[@id='username']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "tomsmith"
+    }, {
+      "id": "339b08ea-b13c-46b7-a6e1-6d719e65b4b9",
+      "comment": "",
+      "command": "click",
+      "target": "id=login",
+      "targets": [
+        ["id=login", "id"],
+        ["name=login", "name"],
+        ["css=#login", "css:finder"],
+        ["xpath=//form[@id='login']", "xpath:attributes"],
+        ["xpath=//div[@id='content']/div/form", "xpath:idRelative"],
+        ["xpath=//form", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f3910e8d-3e22-4888-9810-ca9ae28167a5",
+      "comment": "",
+      "command": "click",
+      "target": "css=.fa",
+      "targets": [
+        ["css=.fa", "css:finder"],
+        ["xpath=//form[@id='login']/button/i", "xpath:idRelative"],
+        ["xpath=//i", "xpath:position"],
+        ["xpath=//i[contains(.,' Login')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "146a954c-6c61-4610-a00c-7130568678b7",
+      "comment": "",
+      "command": "click",
+      "target": "css=.icon-2x",
+      "targets": [
+        ["css=.icon-2x", "css:finder"],
+        ["xpath=//div[@id='content']/div/a/i", "xpath:idRelative"],
+        ["xpath=//a/i", "xpath:position"],
+        ["xpath=//i[contains(.,'Logout')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "d4fb6e4f-b405-4901-99bc-ab1876bedbb1",
