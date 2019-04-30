@@ -119,8 +119,9 @@ public class PlayerDaoTest {
         playerDao.addPlayer(player);
 
         inOrder.verify(addStatementMock, times(1)).setString(1, "zxc123");
-        inOrder.verify(addStatementMock, times(1)).setInt(2, 100);
         inOrder.verify(addStatementMock, times(1)).setInt(3, 100);
+        inOrder.verify(addStatementMock, times(1)).setInt(2, 100);
+        
         inOrder.verify(addStatementMock).executeUpdate();
     }
 

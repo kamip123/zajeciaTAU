@@ -44,8 +44,8 @@ public class PlayerDaoJdbcImpl implements PlayerDao {
         int result;
         try {
             addPlayerPreparedStatement.setString(1, player.getName());
-            addPlayerPreparedStatement.setInt(2, player.getArmor());
             addPlayerPreparedStatement.setInt(3, player.getHp());
+            addPlayerPreparedStatement.setInt(2, player.getArmor());
             result = addPlayerPreparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new IllegalStateException(e.getMessage());
