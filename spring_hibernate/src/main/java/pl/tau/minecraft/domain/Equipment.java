@@ -1,8 +1,7 @@
 package pl.tau.minecraft.domain;
 
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.*;
 
@@ -10,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "equipment")
 @NamedQueries({ 
 	@NamedQuery(name = "equipment.all", query = "Select p from Equipment p"),
-	@NamedQuery(name = "equipment.findEquipmentsByItemName", query = "Select c from Equipment c where c.firstPosition like :itemNameFragment")
+	@NamedQuery(name = "equipment.findEquipmentsByItemName", query = "Select c from Equipment c where c.secondPosition like :itemName")
 })
 public class Equipment {
 
@@ -51,20 +50,37 @@ public class Equipment {
 		this.firstPositionQuantity = firstPositionQuantity;
 	}
 
-	public String getsecondPosition() {
+	public String getSecondPosition() {
 		return secondPosition;
 	}
 	
-	public void setsecondPosition(String secondPosition) {
+	public void setSecondPosition(String secondPosition) {
 		this.secondPosition = secondPosition;
 	}
 
-	public int getsecondPositionQuantity() {
+	public int getSecondPositionQuantity() {
 		return secondPositionQuantity;
 	}
 	
-	public void setsecondPositionQuantity(int secondPositionQuantity) {
+	public void setSecondPositionQuantity(int secondPositionQuantity) {
 		this.secondPositionQuantity = secondPositionQuantity;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Equipment equipment = (Equipment) o;
+		return firstPositionQuantity == equipment.firstPositionQuantity &&
+				secondPositionQuantity == equipment.secondPositionQuantity &&
+				Objects.equals(id, equipment.id) &&
+				Objects.equals(firstPosition, equipment.firstPosition) &&
+				Objects.equals(secondPosition, equipment.secondPosition) &&
+				Objects.equals(lastUseDate, equipment.lastUseDate);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, firstPosition, firstPositionQuantity, secondPosition, secondPositionQuantity, lastUseDate);
+	}
 }

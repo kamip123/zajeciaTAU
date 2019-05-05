@@ -1,6 +1,7 @@
 package pl.tau.minecraft.domain;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity(name = "Player")
 @Table(name = "player")
@@ -49,4 +50,19 @@ public class Player {
 		this.armor = armor;
 	}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return hp == player.hp &&
+                armor == player.armor &&
+                Objects.equals(id, player.id) &&
+                Objects.equals(name, player.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, hp, armor);
+    }
 }
