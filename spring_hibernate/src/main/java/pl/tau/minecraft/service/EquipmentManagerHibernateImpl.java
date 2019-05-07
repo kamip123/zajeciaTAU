@@ -29,6 +29,10 @@ public class EquipmentManagerHibernateImpl implements EquipmentManager {
 	@Override
 	public Long addPlayer(Player player) {
 		if (player.getId() != null) throw new IllegalArgumentException("the player ID should be null if added to database");
+		for (Equipment equipment : player.getEquipments()) {
+			equipment.setPlayer(player);
+			sessionFactory.getCurrentSession().update(equipment);
+		}
 		sessionFactory.getCurrentSession().persist(player);
 		sessionFactory.getCurrentSession().flush();
 		return player.getId();
@@ -52,6 +56,10 @@ public class EquipmentManagerHibernateImpl implements EquipmentManager {
 	@Override
 	public void deletePlayer(Player player) {
 		player = (Player) sessionFactory.getCurrentSession().get(Player.class, player.getId());
+		for (Equipment equipment : player.getEquipments()) {
+			equipment.setPlayer(null);
+			sessionFactory.getCurrentSession().update(equipment);
+		}
 		sessionFactory.getCurrentSession().delete(player);
 	}
 
