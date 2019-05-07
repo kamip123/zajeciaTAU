@@ -2,6 +2,9 @@ package pl.tau.minecraft.domain;
 
 import javax.persistence.*;
 import java.util.Objects;
+import pl.tau.minecraft.domain.Equipment;
+import java.util.List;
+import java.util.LinkedList;
 
 @Entity(name = "Player")
 @Table(name = "player")
@@ -18,6 +21,21 @@ public class Player {
     private int hp;
     private int armor;
     
+    @OneToMany(cascade = CascadeType.PERSIST,
+			fetch = FetchType.EAGER,
+			orphanRemoval=false,
+			mappedBy = "player"
+	)
+    private List<Equipment> equipments = new LinkedList<>();
+
+    public List<Equipment> getEquipments() {
+		return equipments;
+	}
+
+	public void setEquipments(List<Equipment> equipments) {
+		this.equipments = equipments;
+    }
+
     public Long getId() {
         return id;
     }

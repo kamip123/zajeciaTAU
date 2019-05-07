@@ -141,11 +141,7 @@ public class EquipmentManagerTest {
     @Test
     public void findByItemNameTest() {
         List<Equipment> equipments = equipmentManager.findEquipmentsByItemName("hield");
-        if(equipments.size() != 0) {
-            assertEquals("shield", equipments.get(0).getSecondPosition());
-        }else{
-            assertEquals(1, 0);
-        }
+        assertEquals("shield", equipments.get(0).getSecondPosition());
     }
 
     @Test
@@ -165,5 +161,21 @@ public class EquipmentManagerTest {
         player.setName("Pokemon Master");
         equipmentManager.updatePlayer(player);
         assertEquals("Pokemon Master", equipmentManager.findPlayerById(playerIds.get(0)).getName());
+    }
+
+    @Test
+    public void getPlayerEquipmentsTest() {
+        Player player = equipmentManager.findPlayerById(playerIds.get(0));
+        assertNotNull(player);
+        int prevSize = player.getEquipments().size();
+        assertEquals(prevSize, 0);
+
+        Equipment equipment = equipmentManager.findEquipmentById(equipmentIds.get(2));
+        List<Equipment> currentEquipment = player.getEquipments();
+        currentEquipment.add(equipment);
+        player.setEquipments(currentEquipment);
+        equipmentManager.updatePlayer(player);
+
+        assertEquals(prevSize+1, 1);
     }
 }

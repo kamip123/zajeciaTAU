@@ -55,6 +55,12 @@ public class EquipmentManagerHibernateImpl implements EquipmentManager {
 		sessionFactory.getCurrentSession().delete(player);
 	}
 
+	@Override
+	public List<Equipment> findAllPlayerEquipments(Long id) {
+		Player player = sessionFactory.getCurrentSession().get(Player.class, id);
+		return player.getEquipments();
+	}
+
 
 	// equipment
 	@Override
@@ -90,4 +96,5 @@ public class EquipmentManagerHibernateImpl implements EquipmentManager {
 				.setString("itemName", "%"+itemName+"%")
 				.list();
 	}
+
 }

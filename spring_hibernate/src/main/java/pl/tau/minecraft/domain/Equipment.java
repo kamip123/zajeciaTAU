@@ -5,6 +5,8 @@ import java.util.Objects;
 
 import javax.persistence.*;
 
+import pl.tau.minecraft.domain.Player;
+
 @Entity(name = "Equipment")
 @Table(name = "equipment")
 @NamedQueries({ 
@@ -22,9 +24,21 @@ public class Equipment {
 
 	private String secondPosition;
 	private int secondPositionQuantity;
-
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "player_id")
+	private Player player;
+	
 	@Temporal(TemporalType.DATE)
 	private Date lastUseDate;
+
+	public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+	}
 
 	public Long getId() {
         return id;

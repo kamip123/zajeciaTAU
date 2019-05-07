@@ -12,6 +12,7 @@ public interface EquipmentManager {
 	Player findPlayerById(Long id);
 	void deletePlayer(Player player);
 	void updatePlayer(Player player);
+	List<Equipment> findAllPlayerEquipments(Long id);
 
 	// equipment
 	Long addEquipment(Equipment equipment);
