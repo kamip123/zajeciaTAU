@@ -104,5 +104,16 @@ public class EquipmentManagerHibernateImpl implements EquipmentManager {
 				.setString("itemName", "%"+itemName+"%")
 				.list();
 	}
+	
+	@Override
+	public void switchEquipmentOwner(Long idPrev, Long idNext, Equipment equipment){
+		sessionFactory.getCurrentSession().get(Player.class, idPrev).getEquipments().remove(equipment);
+		sessionFactory.getCurrentSession().update(sessionFactory.getCurrentSession().get(Player.class, idPrev));
 
+		sessionFactory.getCurrentSession().get(Player.class, idNext).getEquipments().add(equipment);
+		sessionFactory.getCurrentSession().update(sessionFactory.getCurrentSession().get(Player.class, idNext));
+
+		equipment.setPlayer(sessionFactory.getCurrentSession().get(Player.class, idNext));
+		sessionFactory.getCurrentSession().update(equipment);
+	}
 }

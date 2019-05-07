@@ -67,9 +67,10 @@ public class EquipmentManagerTest {
      * @param secondPosition
      * @param firstPositionQuantity
      * @param secondPositionQuantity
+     * @param player
      * @return
      */
-    private Equipment addEquipmentHelper(String firstPosition, String secondPosition, int firstPositionQuantity, int secondPositionQuantity) {
+    private Equipment addEquipmentHelper(String firstPosition, String secondPosition, int firstPositionQuantity, int secondPositionQuantity, Player player) {
         Long equipmentId;
         Equipment equipment;
         equipment = new Equipment();
@@ -78,6 +79,7 @@ public class EquipmentManagerTest {
         equipment.setSecondPosition(secondPosition);
         equipment.setFirstPositionQuantity(firstPositionQuantity);
         equipment.setSecondPositionQuantity(secondPositionQuantity);
+        equipment.setPlayer(player);
         equipment.setId(null);
 
         equipmentIds.add(equipmentId = equipmentManager.addEquipment(equipment));
@@ -91,12 +93,12 @@ public class EquipmentManagerTest {
         equipmentIds = new LinkedList<>();
         playerIds = new LinkedList<>();
 
-        addEquipmentHelper("sword +1", "shield to update", 1 , 1);
-        addEquipmentHelper("spear +1","armor", 1, 1);
-        addEquipmentHelper("axe +1","shield", 1, 1);
+        addEquipmentHelper("sword +1", "shield", 1 , 1, null);
+        addEquipmentHelper("spear +1","armor", 1, 1, null);
+        addEquipmentHelper("axe +1","shield", 1, 1, null);
 
-        Equipment equipment = addEquipmentHelper("axe +100","shield +60", 10,  10);
-        Equipment equipment2 = addEquipmentHelper("axe +2","shield +7", 3,  5);
+        Equipment equipment = addEquipmentHelper("axe +100","shield +60", 10,  10, null);
+        Equipment equipment2 = addEquipmentHelper("axe +2","shield +7", 3,  5, null);
 
         List<Equipment> currentEquipment = new LinkedList<Equipment>();
         currentEquipment.add(equipment);
@@ -173,7 +175,7 @@ public class EquipmentManagerTest {
     }
 
     @Test
-    public void getPlayerEquipmentsTest() {
+    public void addPlayerEquipmentsTest() {
         Player player = equipmentManager.findPlayerById(playerIds.get(0));
         assertNotNull(player);
         int prevSize = player.getEquipments().size();
@@ -181,14 +183,37 @@ public class EquipmentManagerTest {
 
         Equipment equipment = equipmentManager.findEquipmentById(equipmentIds.get(0));
         assertNotNull(equipment);
-        List<Equipment> currentEquipment = new LinkedList<Equipment>();
-        currentEquipment = player.getEquipments();
-        currentEquipment.add(equipment);
-        player.setEquipments(currentEquipment);
-
+        equipment.setPlayer(player);
+        equipmentManager.updateEquipment(equipment);
+        player.getEquipments().add(equipment);
         equipmentManager.updatePlayer(player);
+
         player = equipmentManager.findPlayerById(playerIds.get(0));
         int newSize = player.getEquipments().size();
         assertEquals(prevSize+1, newSize);
+    }
+
+    @Test
+    public void switchPlayerEquipmentsTest() {
+        Player player = equipmentManager.findPlayerById(playerIds.get(0));
+        assertNotNull(player);
+        int prevSize = player.getEquipments().size();
+
+        Player player2 = equipmentManager.findPlayerById(playerIds.get(1));
+        assertNotNull(player2);
+        int prevSize2 = player2.getEquipments().size();
+
+        Equipment equipment = equipmentManager.findEquipmentById(equipmentIds.get(1));
+        assertNotNull(equipment);
+
+        equipmentManager.switchEquipmentOwner(player.getId(), player2.getId(), equipment);
+
+        Player player = equipmentManager.findPlayerById(playerIds.get(0));
+        Player player2 = equipmentManager.findPlayerById(playerIds.get(1));
+        int newSize = player.getEquipments().size();
+        int newSize2 = player2.getEquipments().size();
+
+        assertEquals(prevSize-1, newSize);
+        assertEquals(prevSize+1, newSize2);
     }
 }
