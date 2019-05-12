@@ -89,6 +89,10 @@ public class EquipmentManagerHibernateImpl implements EquipmentManager {
 	@Override
 	public void deleteEquipment(Equipment equipment) {
         equipment = (Equipment) sessionFactory.getCurrentSession().get(Equipment.class, equipment.getId());
+		if (equipment.getPlayer() != null) {
+			equipment.getPlayer().getEquipments().remove(equipment);
+			sessionFactory.getCurrentSession().update(equipment.getPlayer());
+		}
 		sessionFactory.getCurrentSession().delete(equipment);
 	}
 
@@ -106,14 +110,13 @@ public class EquipmentManagerHibernateImpl implements EquipmentManager {
 	}
 	
 	@Override
-	public void switchEquipmentOwner(Long idPrev, Long idNext, Equipment equipment){
-		sessionFactory.getCurrentSession().get(Player.class, idPrev).getEquipments().remove(equipment);
-		sessionFactory.getCurrentSession().update(sessionFactory.getCurrentSession().get(Player.class, idPrev));
+	public void switchEquipmentOwner(Player player, Player player2, Equipment equipment){
+		player.getEquipments().remove(equipment);
+		sessionFactory.getCurrentSession().update(player);
+		player2.getEquipments().add(equipment);
+		sessionFactory.getCurrentSession().update(player2);
 
-		sessionFactory.getCurrentSession().get(Player.class, idNext).getEquipments().add(equipment);
-		sessionFactory.getCurrentSession().update(sessionFactory.getCurrentSession().get(Player.class, idNext));
-
-		equipment.setPlayer(sessionFactory.getCurrentSession().get(Player.class, idNext));
+		equipment.setPlayer(player2);
 		sessionFactory.getCurrentSession().update(equipment);
 	}
 }

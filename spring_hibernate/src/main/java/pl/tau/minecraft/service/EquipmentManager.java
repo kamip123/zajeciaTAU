@@ -21,5 +21,5 @@ public interface EquipmentManager {
 	void deleteEquipment(Equipment equipment);
 	List<Equipment>  findAllEquipments();
 	List<Equipment> findEquipmentsByItemName(String itemName);
-	void switchEquipmentOwner(Long idPrev, Long idNext, Equipment equipment);
+	void switchEquipmentOwner(Player player, Player player2, Equipment equipment);
 }

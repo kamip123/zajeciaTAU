@@ -93,12 +93,8 @@ public class EquipmentManagerTest {
         equipmentIds = new LinkedList<>();
         playerIds = new LinkedList<>();
 
-        addEquipmentHelper("sword +1", "shield", 1 , 1, null);
-        addEquipmentHelper("spear +1","armor", 1, 1, null);
-        addEquipmentHelper("axe +1","shield", 1, 1, null);
-
-        Equipment equipment = addEquipmentHelper("axe +100","shield +60", 10,  10, null);
-        Equipment equipment2 = addEquipmentHelper("axe +2","shield +7", 3,  5, null);
+        Equipment equipment = addEquipmentHelper("axe +100","shield", 10,  10, null);
+        Equipment equipment2 = addEquipmentHelper("axe +2","shield", 3,  5, null);
 
         List<Equipment> currentEquipment = new LinkedList<Equipment>();
         currentEquipment.add(equipment);
@@ -122,7 +118,7 @@ public class EquipmentManagerTest {
     @Test
     public void getEquipmentByIdTest() {
         Equipment equipment = equipmentManager.findEquipmentById(equipmentIds.get(0));
-        assertEquals("sword +1",equipment.getFirstPosition());
+        assertEquals("axe +100",equipment.getFirstPosition());
     }
 
     @Test
@@ -193,27 +189,32 @@ public class EquipmentManagerTest {
         assertEquals(prevSize+1, newSize);
     }
 
+
     @Test
     public void switchPlayerEquipmentsTest() {
         Player player = equipmentManager.findPlayerById(playerIds.get(0));
-        assertNotNull(player);
         int prevSize = player.getEquipments().size();
 
         Player player2 = equipmentManager.findPlayerById(playerIds.get(1));
-        assertNotNull(player2);
         int prevSize2 = player2.getEquipments().size();
 
-        Equipment equipment = equipmentManager.findEquipmentById(equipmentIds.get(1));
-        assertNotNull(equipment);
+        Equipment equipment = equipmentManager.findEquipmentById(equipmentIds.get(0));
 
-        equipmentManager.switchEquipmentOwner(player.getId(), player2.getId(), equipment);
+        System.out.println(equipment.getPlayer().getName());
 
-        Player player = equipmentManager.findPlayerById(playerIds.get(0));
-        Player player2 = equipmentManager.findPlayerById(playerIds.get(1));
+        equipmentManager.switchEquipmentOwner(player, player2, equipment);
+
+        System.out.println(equipment.getPlayer().getName());
+
+        player = equipmentManager.findPlayerById(playerIds.get(0));
+        player2 = equipmentManager.findPlayerById(playerIds.get(1));
         int newSize = player.getEquipments().size();
         int newSize2 = player2.getEquipments().size();
+
+
 
         assertEquals(prevSize-1, newSize);
         assertEquals(prevSize+1, newSize2);
     }
+
 }
