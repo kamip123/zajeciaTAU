@@ -200,12 +200,18 @@ public class EquipmentManagerTest {
 
         Equipment equipment = equipmentManager.findEquipmentById(equipmentIds.get(0));
 
+        System.out.println(equipment.getPlayer().getName());
+
         equipmentManager.switchEquipmentOwner(player, player2, equipment);
+
+        System.out.println(equipment.getPlayer().getName());
 
         player = equipmentManager.findPlayerById(playerIds.get(0));
         player2 = equipmentManager.findPlayerById(playerIds.get(1));
         int newSize = player.getEquipments().size();
         int newSize2 = player2.getEquipments().size();
+
+
 
         assertEquals(prevSize-1, newSize);
         assertEquals(prevSize+1, newSize2);
